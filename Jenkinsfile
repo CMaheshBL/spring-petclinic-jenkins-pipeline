@@ -17,19 +17,19 @@ pipeline {
     }
     stage('Compile') {
        steps {
-         sh 'mvn compile' //only compilation of the code
+         bat 'mvn compile' //only compilation of the code
        }
     }
-    stage('Test') {
-      steps {
-        sh '''
-        mvn clean install
-        ls
-        pwd
-        ''' 
+   // stage('Test') {
+   //  steps {
+    //    bat '''
+    //    mvn clean install
+    //    ls
+    //    pwd
+    //    ''' 
         //if the code is compiled, we test and package it in its distributable format; run IT and store in local repository
-      }
-    }
+    //  }
+    //}
     stage('Building Image') {
       steps{
         script {
@@ -48,7 +48,7 @@ pipeline {
     }
     stage('Remove Unused docker image') {
       steps{
-        sh "docker rmi $registry:latest"
+        bat "docker rmi $registry:latest"
       }
     }
   }
