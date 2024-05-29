@@ -21,7 +21,7 @@ pipeline {
        }
     }
 
-    stage("Docker Build & Push"){
+/*    stage("Docker Build & Push"){
        steps{
           script{
             withDockerRegistry(credentialsId: 'dockercred', toolName: 'docker') {
@@ -33,7 +33,7 @@ pipeline {
          }
       }
     }
-    
+*/
    // stage('Test') {
    //  steps {
     //    bat '''
@@ -44,7 +44,7 @@ pipeline {
         //if the code is compiled, we test and package it in its distributable format; run IT and store in local repository
     //  }
     //}
-   /* stage('Building Image') {
+   stage('Building Image') {
       steps{
         script {
           dockerImage = docker.build registry + ":latest"
@@ -65,6 +65,6 @@ pipeline {
         bat "docker rmi $registry:latest"
       }
     }
-    */
+   
   }
 }
