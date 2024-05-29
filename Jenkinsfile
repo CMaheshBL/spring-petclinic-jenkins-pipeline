@@ -20,6 +20,20 @@ pipeline {
          bat 'mvn compile' //only compilation of the code
        }
     }
+
+    stage("Docker Build & Push"){
+       steps{
+          script{
+            withDockerRegistry(credentialsId: 'dockercred', toolName: 'docker') {
+                 bat "docker build -t cmaheshbl/spring-petclinic-hub ."
+                 bat "docker tag cmaheshbl/spring-petclinic-hub cmaheshbl/spring-petclinic-hub:latest "
+                 bat "docker push cmaheshbl/spring-petclinic-hub:latest "
+        
+            }
+         }
+      }
+    }
+    
    // stage('Test') {
    //  steps {
     //    bat '''
@@ -30,7 +44,7 @@ pipeline {
         //if the code is compiled, we test and package it in its distributable format; run IT and store in local repository
     //  }
     //}
-    stage('Building Image') {
+   /* stage('Building Image') {
       steps{
         script {
           dockerImage = docker.build registry + ":latest"
@@ -51,5 +65,6 @@ pipeline {
         bat "docker rmi $registry:latest"
       }
     }
+    */
   }
 }
